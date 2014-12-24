@@ -20,6 +20,15 @@ int ftime(TimeB *tp)
 	memset(tp, 0, sizeof(TimeB));
 	return 0;
 }
+
+FILE *fopen(const char *path, const char *mode)
+{
+	FILE *fp = NULL;
+	fopen_s(&fp, path, mode);
+	return fp;
+}
+
+
 #else
 int usleep(int micro_second)
 {
@@ -36,6 +45,11 @@ int ftime(TimeB *tp)
 	tp->timezone = timeB.timezone;
 	tp->dstflag = timeB.dstflag;
 	return ret;
+}
+
+FILE *fopen(const char *path, const char *mode)
+{
+	return ::fopen(path, mode);
 }
 
 #endif
