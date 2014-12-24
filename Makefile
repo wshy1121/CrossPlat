@@ -9,7 +9,7 @@
 #CROSS  = arm-none-linux-gnueabi-
 #CROSS  = arm-linux-gnueabihf-
 
-LIB_OBJS += thread_base.o string_base.o platform_base.o mem_base.o 
+LIB_OBJS += thread_base.o string_base.o platform_base.o mem_base.o link_tool.o
 
 CPP	=	@echo " g++ $@"; $(CROSS)g++
 CC	=	@echo " gcc $@"; $(CROSS)gcc
@@ -39,10 +39,10 @@ $(LIB_TARGET): $(LIB_OBJS)
 	$(CPP) -c -Wall $(CFLAGS) $^ -o $@
 
 clean:
-	$(RM) $(LIB_OBJS)
+	$(RM) $(LIB_OBJS) $(LIB_TARGET)
 
 install:
-	cp $(LIB_TARGET) ../Libs/libNetApp.a 
+	cp $(LIB_TARGET) ../Build/Libs/$(LIB_TARGET) 
 
 
 	
