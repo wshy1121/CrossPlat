@@ -1,6 +1,6 @@
 #ifndef __PLATFORM_BASE_H
 #define __PLATFORM_BASE_H
-
+#include "stdafx.h"
 typedef struct TimeB {
 	time_t         time;
 	unsigned short millitm;

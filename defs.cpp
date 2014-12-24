@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "defs.h"
 
 const int SERVER_PORT = 8889;

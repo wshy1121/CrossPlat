@@ -1,5 +1,6 @@
 #ifndef __LINK_TOOL_H
 #define __LINK_TOOL_H
+#include "thread_base.h"
 #include <map>
 #include <stddef.h>
 #include <string>

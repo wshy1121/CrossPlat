@@ -1,3 +1,8 @@
 *.o
 
 *.a
+/CrossPlat/Debug
+/CrossPlat/ipch/crossplat-210e45d9
+/CrossPlat/*.sdf
+
+/CrossPlat/*.opensdf
