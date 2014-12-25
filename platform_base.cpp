@@ -12,6 +12,11 @@ namespace base
 #if WIN32
 int usleep(int micro_second)
 {
+	if (micro_second < 1000)
+	{
+		micro_second = 1000;
+	}
+	
 	Sleep(micro_second / 1000);
 	return 0;
 }

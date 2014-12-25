@@ -8,8 +8,8 @@
 #CROSS  = sh4-linux-uclibc-
 #CROSS  = arm-none-linux-gnueabi-
 #CROSS  = arm-linux-gnueabihf-
+LIB_OBJS += thread_base.o string_base.o platform_base.o mem_base.o link_tool.o socket_base.o defs.o
 
-LIB_OBJS += thread_base.o string_base.o platform_base.o mem_base.o link_tool.o
 
 CPP	=	@echo " g++ $@"; $(CROSS)g++
 CC	=	@echo " gcc $@"; $(CROSS)gcc

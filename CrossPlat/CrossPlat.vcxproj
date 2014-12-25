@@ -78,6 +78,7 @@
     <ClInclude Include="..\link_tool.h" />
     <ClInclude Include="..\mem_base.h" />
     <ClInclude Include="..\platform_base.h" />
+    <ClInclude Include="..\socket_base.h" />
     <ClInclude Include="..\stdafx.h" />
     <ClInclude Include="..\string_base.h" />
     <ClInclude Include="..\thread_base.h" />
@@ -88,6 +89,7 @@
     <ClCompile Include="..\link_tool.cpp" />
     <ClCompile Include="..\mem_base.cpp" />
     <ClCompile Include="..\platform_base.cpp" />
+    <ClCompile Include="..\socket_base.cpp" />
     <ClCompile Include="..\string_base.cpp" />
     <ClCompile Include="..\thread_base.cpp" />
     <ClCompile Include="stdafx.cpp">

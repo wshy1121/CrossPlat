@@ -7,9 +7,9 @@
 namespace base
 {
 #ifdef WIN32
-char *strncpy(char *dest, const char *src, size_t n)
+char *strcpy(char *dest, const char *src)
 {
-	strcpy_s(dest, n, src);
+	strcpy_s(dest, strlen(src)+1, src);
 	return dest;
 }
 
@@ -27,9 +27,9 @@ int snprintf(char *str, size_t size, const char *format, ...)
 	return ret;
 }
 #else
-char *strncpy(char *dest, const char *src, size_t n)
+char *strcpy(char *dest, const char *src)
 {
-	return ::strncpy(dest, src, n);
+	return ::strcpy(dest, src);
 }
 
 int vsnprintf(char *str, size_t size, const char *format, va_list ap)

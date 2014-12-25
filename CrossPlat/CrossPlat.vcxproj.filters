@@ -42,6 +42,9 @@
     <ClInclude Include="..\thread_base.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\socket_base.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -63,6 +66,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\defs.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\socket_base.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
