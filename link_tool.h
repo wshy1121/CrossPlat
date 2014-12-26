@@ -37,6 +37,7 @@ public:
 	int size();
 	node *getHead();
 	node *find(node *cmpNode, bool (*cmpFuc)(node *node1, node *node2));
+	node *erase(node *pNode);
 private:
 	void init();
 	void exit();

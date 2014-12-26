@@ -148,6 +148,15 @@ node *CList::find(node *cmpNode, bool (*cmpFuc)(node *node1, node *node2))
 	return NULL;
 }
 
+node *CList::erase(node *pNode)
+{
+	node *pNodeNext = pNode->next;
+	remov_node(pNode);
+	
+	tail = head_node.pre;
+	--(node_num);
+	return pNodeNext;
+}
 
 void CStrNode::init(int maxStrLen)
 {
