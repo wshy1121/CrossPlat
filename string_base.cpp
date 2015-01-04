@@ -9,7 +9,10 @@ namespace base
 #ifdef WIN32
 char *strcpy(char *dest, const char *src)
 {
-	strcpy_s(dest, strlen(src)+1, src);
+	if (dest != NULL)
+	{
+		strcpy_s(dest, strlen(src)+1, src);
+	}
 	return dest;
 }
 
