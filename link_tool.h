@@ -6,7 +6,7 @@
 #include <string>
 #include <stdlib.h>
 
-
+#define INF_SIZE 16
 #define TQueueContain(x) container_of((x), ThreadNode, node)
 #define each_link_node(head, node) for ((node)=(head)->next; (head) != (node); (node)=(node)->next)
 #define TRACE_INF_LEN  512
@@ -90,6 +90,28 @@ private:
 	int m_strLen;
 	int m_maxStrNodeLen;
 };
+
+
+class CLogDataInf
+{
+public:
+	CLogDataInf();
+	~CLogDataInf();
+	void putInf(char *strdata);
+	void putInf(int intData);
+	int packet();
+	int unPacket(char *infs[]);
+	int unPacket(char *packet, char *infs[]);
+	void I2CLen(int iLen, char *CLen, int CLenSize);
+	void C2ILen(char *CLen, int CLenSize, int &iLen);
+private:
+	int m_lenSize;	
+	char *m_infs[INF_SIZE];
+	char *m_packet;
+	int m_packetLen;
+	int m_infsNum;
+};
+
 
 class CPthreadMutex
 {

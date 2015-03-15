@@ -380,3 +380,119 @@ char *CString::c_str()
 	return newStrNode->getStr();
 }
 
+
+
+CLogDataInf::CLogDataInf() : m_lenSize(4), m_packet(NULL), m_packetLen(0), m_infsNum(0)
+{
+}
+
+CLogDataInf::~CLogDataInf()
+{
+	if (m_packet)
+	{
+		free(m_packet);
+		m_packet = NULL;
+	}
+}
+
+void CLogDataInf::I2CLen(int iLen, char *CLen, int CLenSize)
+{
+	memset(CLen, 0, CLenSize);
+	for (int i=0; i<CLenSize; ++i)
+	{
+		CLen[i] = iLen;
+		iLen = iLen >> 8;
+		if (iLen == 0)
+		{
+			CLen[CLenSize-1] = i + 1;
+			break;
+		}
+	}
+	return ;
+}
+
+void CLogDataInf::C2ILen(char *CLen, int CLenSize, int &iLen)
+{
+	iLen = 0;
+	for (int i=0; i<CLen[CLenSize-1]; ++i)
+	{
+		iLen += (unsigned char)(CLen[i]) << (i<<3);
+	}
+	return ;
+}
+
+void CLogDataInf::putInf(char *strdata)
+{
+	if (m_infsNum >= INF_SIZE)
+	{
+		return ;
+	}
+	m_infs[m_infsNum++] = strdata;
+	m_packetLen += strlen(strdata) + 1 + m_lenSize;
+}
+
+void CLogDataInf::putInf(int intData)
+{
+	char strData[64];
+	base::snprintf(strData, sizeof(strData), "%d", intData);
+	putInf(strData);
+}
+
+int CLogDataInf::packet()
+{
+	if (m_packet)
+	{
+		free(m_packet);
+		m_packet = NULL;
+	}
+	int mallocLen = m_lenSize + m_packetLen + m_lenSize;
+	m_packet = (char *)malloc(mallocLen);
+
+	int pos = 0;
+	I2CLen(mallocLen, m_packet+pos, m_lenSize);
+	pos += m_lenSize;
+
+	char *inf = NULL;
+	int infLen = 0;
+	for (int i=0; i<m_infsNum; ++i)
+	{
+		inf = m_infs[i];
+		infLen = strlen(inf) + 1;
+		I2CLen(infLen, m_packet+pos, m_lenSize);
+		pos += m_lenSize;
+		memcpy(m_packet+pos, inf, infLen);
+		pos += infLen;
+	}
+	I2CLen(mallocLen, m_packet+pos, m_lenSize);
+	return mallocLen;
+}
+int CLogDataInf::unPacket(char *infs[])
+{
+	return unPacket(m_packet, infs);
+}
+int CLogDataInf::unPacket(char *packet, char *infs[])
+{
+	int totalLen = 0;
+	char *inf = NULL;
+	int infLen = 0;
+	C2ILen(packet, m_lenSize, totalLen);
+	int infsNum = 0;
+	int i=m_lenSize;
+	for (; i<totalLen-m_lenSize; )
+	{
+		C2ILen(packet+i,m_lenSize,infLen);
+		inf = packet + i + m_lenSize;
+		i += infLen;
+		infs[infsNum++] = inf;
+	}
+	C2ILen(packet+i,m_lenSize,infLen);
+	if (infLen != totalLen)
+	{
+		infs[0] = NULL;
+		return 0;
+	}
+	infs[infsNum] = NULL;
+	return totalLen;
+}
+
+
