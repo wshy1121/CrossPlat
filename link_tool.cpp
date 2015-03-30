@@ -4,6 +4,7 @@
 #include <string.h>
 #include <assert.h>
 
+using namespace base;
 /******************************************************/
 void init_node(struct node *node)
 {

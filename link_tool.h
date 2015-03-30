@@ -20,6 +20,8 @@ typedef struct node
 void init_node(struct node *node);
 void insert_node(struct node *node, struct node *inser_node);
 void remov_node(struct node *node);
+namespace base
+{
 
 struct  CList
 {
@@ -126,7 +128,7 @@ public:
 	///\brief 析构函数
 	~CPthreadMutex()
 	{
-		free(m_mutex);
+		base::free(m_mutex);
 	}
 
 	///\brief 占用锁
@@ -181,6 +183,7 @@ typedef struct
 	struct node node;
 }ThreadNode;
 
+}
 
 
 
