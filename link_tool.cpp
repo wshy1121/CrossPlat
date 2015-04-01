@@ -382,8 +382,9 @@ char *CString::c_str()
 }
 
 
+int CLogDataInf::m_lenSize = 4;
 
-CLogDataInf::CLogDataInf() : m_lenSize(4), m_packet(NULL), m_packetLen(0), m_infsNum(0)
+CLogDataInf::CLogDataInf() : m_packet(NULL), m_packetLen(0), m_infsNum(0)
 {
 }
 
@@ -500,11 +501,16 @@ int CLogDataInf::unPacket(char *packet, char *infs[], int infLens[])
 	return totalLen;
 }
 
-void CLogDataInf::calcLens(char *infs[], int infNum, int infLens[])
+int CLogDataInf::calcLens(char *infs[], int infNum, int infLens[])
 {
-	for (int i=0; i<infNum; ++i)
+	int totalLen = 0;
+	int i = 0;
+	for (; i<infNum; ++i)
 	{
 		infLens[i] = strlen(infs[i]);
+		totalLen += infLens[i];
 	}
+	infLens[i] = NULL;
+	return totalLen + m_lenSize;
 }
 

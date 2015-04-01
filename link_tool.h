@@ -106,9 +106,9 @@ public:
 	int unPacket(char *packet, char *infs[], int infLens[]);
 	void I2CLen(int iLen, char *CLen, int CLenSize);
 	void C2ILen(char *CLen, int CLenSize, int &iLen);
-	static void calcLens(char *infs[], int infNum, int infLens[]);
+	static int calcLens(char *infs[], int infNum, int infLens[]);
 private:
-	int m_lenSize;	
+	static int m_lenSize;	
 	char *m_infs[INF_SIZE];
 	char *m_packet;
 	int m_packetLen;
