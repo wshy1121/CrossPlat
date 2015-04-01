@@ -467,11 +467,11 @@ int CLogDataInf::packet()
 	I2CLen(mallocLen, m_packet+pos, m_lenSize);
 	return mallocLen;
 }
-int CLogDataInf::unPacket(char *infs[])
+int CLogDataInf::unPacket(char *infs[], int infLens[])
 {
-	return unPacket(m_packet, infs);
+	return unPacket(m_packet, infs, infLens);
 }
-int CLogDataInf::unPacket(char *packet, char *infs[])
+int CLogDataInf::unPacket(char *packet, char *infs[], int infLens[])
 {
 	int totalLen = 0;
 	char *inf = NULL;
@@ -496,4 +496,11 @@ int CLogDataInf::unPacket(char *packet, char *infs[])
 	return totalLen;
 }
 
+void CLogDataInf::calcLens(char *infs[], int infNum, int infLens[])
+{
+	for (int i=0; i<infNum; ++i)
+	{
+		infLens[i] = strlen(infs[i]);
+	}
+}
 
