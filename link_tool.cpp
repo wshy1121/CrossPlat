@@ -484,15 +484,19 @@ int CLogDataInf::unPacket(char *packet, char *infs[], int infLens[])
 		C2ILen(packet+i,m_lenSize,infLen);
 		inf = packet + i + m_lenSize;
 		i += infLen;
-		infs[infsNum++] = inf;
+		infs[infsNum] = inf;
+		infLens[infsNum++] = infLen;
+		
 	}
 	C2ILen(packet+i,m_lenSize,infLen);
 	if (infLen != totalLen)
 	{
 		infs[0] = NULL;
+		infLens[0] = NULL;
 		return 0;
 	}
 	infs[infsNum] = NULL;
+	infLens[infsNum] = NULL;
 	return totalLen;
 }
 
