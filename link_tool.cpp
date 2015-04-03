@@ -468,37 +468,36 @@ int CLogDataInf::packet()
 	I2CLen(mallocLen, m_packet+pos, m_lenSize);
 	return mallocLen;
 }
-int CLogDataInf::unPacket(char *infs[], int infLens[])
+int CLogDataInf::unPacket(char *packet)
 {
-	return unPacket(m_packet, infs, infLens);
+	m_packet = packet;
+	return unPacket(m_packet, m_infs, m_infLens);
 }
 int CLogDataInf::unPacket(char *packet, char *infs[], int infLens[])
 {
-	int totalLen = 0;
 	char *inf = NULL;
 	int infLen = 0;
-	C2ILen(packet, m_lenSize, totalLen);
-	int infsNum = 0;
+	C2ILen(packet, m_lenSize, m_packetLen);
+	m_infsNum = 0;
 	int i=m_lenSize;
-	for (; i<totalLen-m_lenSize; )
+	for (; i<m_packetLen-m_lenSize; )
 	{
 		C2ILen(packet+i,m_lenSize,infLen);
 		inf = packet + i + m_lenSize;
 		i += infLen;
-		infs[infsNum] = inf;
-		infLens[infsNum++] = infLen;
+		infs[m_infsNum] = inf;
+		infLens[m_infsNum++] = infLen;
 		
 	}
 	C2ILen(packet+i,m_lenSize,infLen);
-	if (infLen != totalLen)
-	{
-		infs[0] = NULL;
-		infLens[0] = NULL;
-		return 0;
+	if (infLen != m_packetLen)
+	{	
+		m_packetLen = 0;
+		m_infsNum = 0;
 	}
-	infs[infsNum] = NULL;
-	infLens[infsNum] = NULL;
-	return totalLen;
+	infs[m_infsNum] = NULL;
+	infLens[m_infsNum] = NULL;
+	return m_packetLen;
 }
 
 int CLogDataInf::calcLens(char *infs[], int infNum, int infLens[])

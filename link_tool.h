@@ -102,14 +102,15 @@ public:
 	void putInf(char *strdata);
 	void putInf(int intData);
 	int packet();
-	int unPacket(char *infs[], int infLens[]);
+	int unPacket(char *packet);
 	int unPacket(char *packet, char *infs[], int infLens[]);
 	void I2CLen(int iLen, char *CLen, int CLenSize);
 	void C2ILen(char *CLen, int CLenSize, int &iLen);
 	static int calcLens(char *infs[], int infNum, int infLens[]);
-private:
+public:
 	static int m_lenSize;	
 	char *m_infs[INF_SIZE];
+	int m_infLens[INF_SIZE];
 	char *m_packet;
 	int m_packetLen;
 	int m_infsNum;
