@@ -433,14 +433,7 @@ void CLogDataInf::putInf(char *strdata)
 	m_packetLen += strlen(strdata) + 1 + m_lenSize;
 }
 
-void CLogDataInf::putInf(int intData)
-{
-	char strData[64];
-	base::snprintf(strData, sizeof(strData), "%d", intData);
-	putInf(strData);
-}
-
-int CLogDataInf::packet()
+int CLogDataInf::packet(char *&packet)
 {
 	if (m_packet)
 	{
@@ -460,12 +453,14 @@ int CLogDataInf::packet()
 	{
 		inf = m_infs[i];
 		infLen = strlen(inf) + 1;
-		I2CLen(infLen, m_packet+pos, m_lenSize);
+		I2CLen(infLen + m_lenSize, m_packet+pos, m_lenSize);
 		pos += m_lenSize;
 		memcpy(m_packet+pos, inf, infLen);
 		pos += infLen;
 	}
 	I2CLen(mallocLen, m_packet+pos, m_lenSize);
+
+	packet = m_packet;
 	return mallocLen;
 }
 int CLogDataInf::unPacket(char *packet)

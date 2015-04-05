@@ -100,8 +100,7 @@ public:
 	CLogDataInf();
 	~CLogDataInf();
 	void putInf(char *strdata);
-	void putInf(int intData);
-	int packet();
+	int packet(char *&packet);
 	int unPacket(char *packet);
 	int unPacket(char *packet, char *infs[], int infLens[]);
 	void I2CLen(int iLen, char *CLen, int CLenSize);
