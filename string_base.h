@@ -2,7 +2,7 @@
 #define __STRING_BASE_H
 
 #include <stdarg.h>
-
+#include <string.h>
 namespace base
 {
 char *strcpy(char *dest, const char *src);
