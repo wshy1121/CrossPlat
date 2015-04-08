@@ -425,12 +425,18 @@ void CLogDataInf::C2ILen(char *CLen, int CLenSize, int &iLen)
 
 void CLogDataInf::putInf(char *strdata)
 {
+	putInf(strdata, strlen(strdata) + 1);
+}
+
+void CLogDataInf::putInf(char *hexData, int dataLen)
+{
 	if (m_infsNum >= INF_SIZE)
 	{
 		return ;
 	}
-	m_infs[m_infsNum++] = strdata;
-	m_packetLen += strlen(strdata) + 1 + m_lenSize;
+	m_infs[m_infsNum] = hexData;
+	m_infLens[m_infsNum++] = dataLen;
+	m_packetLen += dataLen + m_lenSize;	
 }
 
 int CLogDataInf::packet(char *&packet)
@@ -452,7 +458,7 @@ int CLogDataInf::packet(char *&packet)
 	for (int i=0; i<m_infsNum; ++i)
 	{
 		inf = m_infs[i];
-		infLen = strlen(inf) + 1;
+		infLen = m_infLens[i];
 		I2CLen(infLen + m_lenSize, m_packet+pos, m_lenSize);
 		pos += m_lenSize;
 		memcpy(m_packet+pos, inf, infLen);
@@ -481,7 +487,7 @@ int CLogDataInf::unPacket(char *packet, char *infs[], int infLens[])
 		inf = packet + i + m_lenSize;
 		i += infLen;
 		infs[m_infsNum] = inf;
-		infLens[m_infsNum++] = infLen;
+		infLens[m_infsNum++] = infLen - m_lenSize;
 		
 	}
 	C2ILen(packet+i,m_lenSize,infLen);
@@ -495,16 +501,4 @@ int CLogDataInf::unPacket(char *packet, char *infs[], int infLens[])
 	return m_packetLen;
 }
 
-int CLogDataInf::calcLens(char *infs[], int infNum, int infLens[])
-{
-	int totalLen = 0;
-	int i = 0;
-	for (; i<infNum; ++i)
-	{
-		infLens[i] = strlen(infs[i]);
-		totalLen += infLens[i];
-	}
-	infLens[i] = NULL;
-	return totalLen + m_lenSize;
-}
 

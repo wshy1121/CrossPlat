@@ -99,13 +99,13 @@ class CLogDataInf
 public:
 	CLogDataInf();
 	~CLogDataInf();
-	void putInf(char *strdata);
+	void putInf(char *strdata);	
+	void putInf(char *hexData, int dataLen);
 	int packet(char *&packet);
 	int unPacket(char *packet);
 	int unPacket(char *packet, char *infs[], int infLens[]);
 	void I2CLen(int iLen, char *CLen, int CLenSize);
 	void C2ILen(char *CLen, int CLenSize, int &iLen);
-	static int calcLens(char *infs[], int infNum, int infLens[]);
 public:
 	static int m_lenSize;	
 	char *m_infs[INF_SIZE];
