@@ -101,9 +101,11 @@ public:
 	~CLogDataInf();
 	void putInf(char *strdata);	
 	void putInf(char *hexData, int dataLen);
+	int packet();
 	int packet(char *&packet);
 	int unPacket(char *packet);
 	int unPacket(char *packet, char *infs[], int infLens[]);
+	int getPacket(char *&packet);
 	void I2CLen(int iLen, char *CLen, int CLenSize);
 	void C2ILen(char *CLen, int CLenSize, int &iLen);
 public:

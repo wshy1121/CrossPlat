@@ -438,6 +438,10 @@ void CLogDataInf::putInf(char *hexData, int dataLen)
 	m_infLens[m_infsNum++] = dataLen;
 	m_packetLen += dataLen + m_lenSize;	
 }
+int CLogDataInf::packet()
+{
+	return packet(m_packet);
+}
 
 int CLogDataInf::packet(char *&packet)
 {
@@ -502,4 +506,9 @@ int CLogDataInf::unPacket(char *packet, char *infs[], int infLens[])
 	return m_packetLen;
 }
 
+int CLogDataInf::getPacket(char *&packet)
+{
+	packet = m_packet;
+	return m_lenSize + m_packetLen + m_lenSize;
+}
 
