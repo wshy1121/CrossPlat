@@ -445,11 +445,7 @@ int CLogDataInf::packet()
 
 int CLogDataInf::packet(char *&packet)
 {
-	if (m_packet)
-	{
-		free(m_packet);
-		m_packet = NULL;
-	}
+	char *tmpPacket = m_packet;
 	int mallocLen = m_lenSize + m_packetLen + m_lenSize;
 	m_packet = (char *)malloc(mallocLen);
 
@@ -472,6 +468,10 @@ int CLogDataInf::packet(char *&packet)
 	I2CLen(mallocLen, m_packet+pos, m_lenSize);
 
 	packet = m_packet;
+	if (tmpPacket)
+	{
+		free(tmpPacket);
+	}	
 	return mallocLen;
 }
 int CLogDataInf::unPacket(char *packet)
@@ -508,6 +508,10 @@ int CLogDataInf::unPacket(char *packet, char *infs[], int infLens[])
 
 int CLogDataInf::getPacket(char *&packet)
 {
+	if (m_packet == NULL)
+	{
+		CLogDataInf::packet();
+	}
 	packet = m_packet;
 	return m_lenSize + m_packetLen + m_lenSize;
 }
