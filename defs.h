@@ -13,6 +13,6 @@ extern const int SERVER_PORT;
 extern const int INVALID_SOCKET;
 extern const int SOCKET_ERROR;
 #endif
-
+#include "trace_worker.h"
 #endif
 
