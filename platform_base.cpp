@@ -2,6 +2,7 @@
 #include "platform_base.h"
 
 #if WIN32
+#include <windows.h>
 #else
 #include <sys/timeb.h>
 #endif
@@ -22,7 +23,12 @@ int usleep(int micro_second)
 }
 int ftime(TimeB *tp)
 {
-	memset(tp, 0, sizeof(TimeB));
+	DWORD tickCount = GetTickCount();
+
+	tp->time = tickCount / 1000;
+	tp->millitm = tickCount % 1000;
+	tp->timezone = 0;
+	tp->dstflag = 0;
 	return 0;
 }
 
