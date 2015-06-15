@@ -32,23 +32,23 @@ void* calloc(size_t nmemb, size_t size)
 #else
 void* malloc(size_t size)
 {
-	return __real_malloc(size);
+	return ::malloc(size);
 }
 
 
 void free(void* p)
 {
-	__real_free(p);
+	::free(p);
 }
 
 void *realloc(void* c, size_t size)
 {
-	return __real_realloc(c, (int)size);
+	return ::realloc(c, (int)size);
 }
 
 void* calloc(size_t nmemb, size_t size)
 {
-	return __real_calloc((int)nmemb, (int)size);
+	return ::calloc((int)nmemb, (int)size);
 }
 #endif
 }//base

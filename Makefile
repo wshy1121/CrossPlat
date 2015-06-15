@@ -10,6 +10,7 @@
 #CROSS  = arm-linux-gnueabihf-
 LIB_OBJS += thread_base.o string_base.o platform_base.o mem_base.o link_tool.o socket_base.o defs.o
 
+CXXFLAGS += -std=c++0x -I../TraceWorker
 
 CPP	=	@echo " g++ $@"; $(CROSS)g++
 CC	=	@echo " gcc $@"; $(CROSS)gcc
@@ -24,7 +25,7 @@ RM	= rm
 AFLAGS	+= -r   
 
 
-LIB_TARGET=libCrossPlat.a
+LIB_TARGET=../CosApp/lib/libCrossPlat.a
 
 all	:	$(LIB_TARGET)
 
@@ -36,7 +37,7 @@ $(LIB_TARGET): $(LIB_OBJS)
 	$(CC) -c $(CFLAGS) $^ -o $@
 
 .cpp.o:
-	$(CPP) -c -Wall $(CFLAGS) $^ -o $@
+	$(CPP) -c -Wall $(CXXFLAGS) $^ -o $@
 
 clean:
 	$(RM) $(LIB_OBJS) $(LIB_TARGET)
