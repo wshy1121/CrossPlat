@@ -5,9 +5,9 @@
 
 typedef struct TimeB {
 	time_t         time;
-	unsigned short millitm;
-	short          timezone;
-	short          dstflag;
+	unsigned short int millitm;
+	short          int timezone;
+	short          int dstflag;
 }TimeB;
 namespace base
 {
