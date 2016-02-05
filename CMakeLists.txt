@@ -14,11 +14,8 @@ else()
 endif()
 
 SET(SRC_SRCS
-  thread_base.cpp
   string_base.cpp
   platform_base.cpp
-  mem_base.cpp
-  link_tool.cpp
   socket_base.cpp
   defs.cpp
 )

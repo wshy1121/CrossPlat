@@ -1,8 +1,8 @@
-#include "stdafx.h"
-#include "string_base.h"
 #include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include "stdafx.h"
+#include "string_base.h"
 
 namespace base
 {
